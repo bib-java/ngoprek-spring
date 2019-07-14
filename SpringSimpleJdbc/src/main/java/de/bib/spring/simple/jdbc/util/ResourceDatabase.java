@@ -21,7 +21,7 @@ public class ResourceDatabase {
 	 * @param user     : Username database.
 	 * @param password : Password database.
 	 */
-	private ResourceDatabase() throws Exception {
+	public ResourceDatabase() throws Exception {
 		Class.forName(driver);
 		this.connection = DriverManager.getConnection(url, user, password);
 	}
@@ -34,7 +34,7 @@ public class ResourceDatabase {
 	 * @param user     : Username database.
 	 * @param password : Password database.
 	 */
-	private ResourceDatabase(String driver, String url, String user, String password) throws Exception {
+	public ResourceDatabase(String driver, String url, String user, String password) throws Exception {
 		Class.forName(driver);
 		this.connection = DriverManager.getConnection(url, user, password);
 	}
