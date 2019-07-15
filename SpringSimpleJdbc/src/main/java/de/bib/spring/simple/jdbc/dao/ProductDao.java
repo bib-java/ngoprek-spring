@@ -21,23 +21,24 @@ public class ProductDao {
 	private Logger log = Logger.getLogger(ProductDao.class.getName());
 	private static final String SQL_INSERT_PRODUCT = "insert into Product (Kode_Product,Nama_Product,Desc_Product,Unit_Product,Harga_Product) values (?,?,?,?,?)";
 
+	private Connection con;
+
 	/**
-	 * Create connection database
+	 * Constructor with connection parameter.
 	 * 
-	 * @return
+	 * @param conn
 	 */
-	private Connection conn() {
-		ResourceDatabase rd;
-		try {
-			rd = new ResourceDatabase();
-			Connection conn = rd.getConnection();
+	public ProductDao(Connection conn) {
+		this.con = conn;
+	}
 
-			return conn;
-		} catch (Exception e) {
-			log.error("Error, when create connection cause :" + LoggerApp.printLog(e));
-		}
-		return null;
-
+	/**
+	 * Set connection database.
+	 * 
+	 * @param con
+	 */
+	public void setCon(Connection con) {
+		this.con = con;
 	}
 
 	/**
@@ -47,7 +48,7 @@ public class ProductDao {
 	 * @throws SQLException
 	 */
 	public void simpan(Product p) throws SQLException {
-		Connection c = conn();
+		Connection c = con;
 
 		try {
 			c.setAutoCommit(false);
