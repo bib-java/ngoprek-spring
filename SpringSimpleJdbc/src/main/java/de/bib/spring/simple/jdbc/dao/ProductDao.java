@@ -2,6 +2,7 @@ package de.bib.spring.simple.jdbc.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
@@ -20,7 +21,10 @@ import de.bib.spring.simple.jdbc.util.LoggerApp;
 public class ProductDao {
 
 	private Logger log = Logger.getLogger(ProductDao.class.getName());
+
 	private static final String SQL_INSERT_PRODUCT = "insert into Product (Kode_Product,Nama_Product,Desc_Product,Unit_Product,Harga_Product) values (?,?,?,?,?)";
+	private static final String SQL_GET_PRODUCT_BYID = "select * from Product where Kode_Product = ?";
+	private static final String SQL_DELETE_PRODUCT_BYID = "delete from Product where Kode_Product = ?";
 
 	private DataSource dSource;
 
@@ -79,6 +83,79 @@ public class ProductDao {
 		} finally {
 			if (c != null) {
 				c.close();
+			}
+		}
+	}
+
+	/**
+	 * Get product by kode_product
+	 * 
+	 * @param id kode product
+	 * @return
+	 * @throws SQLException
+	 */
+	public Product cariById(Integer id) throws SQLException {
+		Product p = new Product();
+		Connection c = dSource.getConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			c.setAutoCommit(false);
+			ps = c.prepareStatement(SQL_GET_PRODUCT_BYID);
+			ps.setInt(1, id);
+
+			rs = ps.executeQuery();
+			c.commit();
+
+			while (rs.next()) {
+				p.setKodeProduct(rs.getInt(1));
+				p.setNameProduct(rs.getString(2));
+			}
+
+		} catch (Exception e) {
+			c.rollback();
+			log.error("Error, when get product to database, cause :" + LoggerApp.printLog(e));
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+
+			if (rs != null) {
+				rs.close();
+			}
+
+			if (ps != null) {
+				ps.close();
+			}
+		}
+		return p;
+
+	}
+
+	public void deleteById(Integer id) throws SQLException {
+		Connection c = dSource.getConnection();
+
+		PreparedStatement ps = null;
+
+		try {
+			c.setAutoCommit(false);
+			ps = c.prepareStatement(SQL_DELETE_PRODUCT_BYID);
+			ps.setInt(1, id);
+
+			ps.executeUpdate();
+			c.commit();
+
+		} catch (Exception e) {
+			c.rollback();
+			log.error("Error, when delete product to database, cause :" + LoggerApp.printLog(e));
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+
+			if (ps != null) {
+				ps.close();
 			}
 		}
 	}

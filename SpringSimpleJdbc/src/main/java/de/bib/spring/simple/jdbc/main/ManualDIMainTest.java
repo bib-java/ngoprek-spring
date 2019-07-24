@@ -17,25 +17,44 @@ public class ManualDIMainTest {
 
 	public static void main(String[] args) throws Exception {
 		ResourceDatabase rd = new ResourceDatabase();
+		ProductDao pDao = new ProductDao(rd.getdSrc());
 
 		System.out.println("Dependncy Injection Manual Test");
 
 		/** instant product class. */
 		Product p = new Product();
-		p.setKodeProduct(0001);
-		p.setNameProduct("Buku Tulis");
-		p.setDescProduct("Buku Tulis Bergaris");
-		p.setUnitProduct("Pack");
-		p.setHargaProduct(new BigDecimal(35000.00));
+//		p.setKodeProduct(0002);
+//		p.setNameProduct("Buku Gambar");
+//		p.setDescProduct("Buku Gambar");
+//		p.setUnitProduct("Pack");
+//		p.setHargaProduct(new BigDecimal(55000.00));
+//
 
-		ProductDao pDao = new ProductDao(rd.getdSrc());
+		/** Insert new product. */
+//		try {
+//			pDao.simpan(p);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			System.out.println("Error, insert data");
+//		}
+
+		/** Get product by kode_product. */
+//		try {
+//			p = pDao.cariById(2);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			System.out.println("Error, Get data");
+//		}
+//		System.out.println("Kode_Product :" + p.getKodeProduct() + " , Nama_Product :" + p.getNameProduct());
+
+		/** Delete product by kode_product. */
 		try {
-			pDao.simpan(p);
+			pDao.deleteById(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Error, insert data");
+			System.out.println("Error, Delete data");
 		}
-
+		System.out.println("Delete product sukses");
 		System.out.println("Finish");
 	}
 
