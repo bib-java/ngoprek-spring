@@ -4,11 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 import org.apache.log4j.Logger;
 
 import de.bib.spring.simple.jdbc.model.Product;
 import de.bib.spring.simple.jdbc.util.LoggerApp;
-import de.bib.spring.simple.jdbc.util.ResourceDatabase;
 
 /**
  * Class handle connection model product to database .
@@ -21,24 +22,34 @@ public class ProductDao {
 	private Logger log = Logger.getLogger(ProductDao.class.getName());
 	private static final String SQL_INSERT_PRODUCT = "insert into Product (Kode_Product,Nama_Product,Desc_Product,Unit_Product,Harga_Product) values (?,?,?,?,?)";
 
-	private Connection con;
+	private DataSource dSource;
 
 	/**
-	 * Constructor with connection parameter.
+	 * Constructor without connection parameter.
 	 * 
 	 * @param conn
 	 */
-	public ProductDao(Connection conn) {
-		this.con = conn;
+	public ProductDao(DataSource dataSource) {
+		this.dSource = dataSource;
+
 	}
 
 	/**
-	 * Set connection database.
+	 * Get DataSource
 	 * 
-	 * @param con
+	 * @return
 	 */
-	public void setCon(Connection con) {
-		this.con = con;
+	public DataSource getDataSource() {
+		return dSource;
+	}
+
+	/**
+	 * Set DataSources
+	 * 
+	 * @param dSource
+	 */
+	public void setDataSource(DataSource dSource) {
+		this.dSource = dSource;
 	}
 
 	/**
@@ -48,7 +59,7 @@ public class ProductDao {
 	 * @throws SQLException
 	 */
 	public void simpan(Product p) throws SQLException {
-		Connection c = con;
+		Connection c = dSource.getConnection();
 
 		try {
 			c.setAutoCommit(false);
