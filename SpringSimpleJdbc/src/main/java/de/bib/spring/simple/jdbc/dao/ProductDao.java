@@ -26,16 +26,20 @@ public class ProductDao {
 	private static final String SQL_GET_PRODUCT_BYID = "select * from Product where Kode_Product = ?";
 	private static final String SQL_DELETE_PRODUCT_BYID = "delete from Product where Kode_Product = ?";
 
-	private DataSource dSource;
+	private DataSource dataSource;
 
 	/**
 	 * Constructor without connection parameter.
 	 * 
 	 * @param conn
 	 */
-	public ProductDao(DataSource dataSource) {
-		this.dSource = dataSource;
+	public ProductDao(DataSource dtSource) {
+		this.dataSource = dtSource;
 
+	}
+	
+	public ProductDao() {
+		
 	}
 
 	/**
@@ -44,16 +48,16 @@ public class ProductDao {
 	 * @return
 	 */
 	public DataSource getDataSource() {
-		return dSource;
+		return dataSource;
 	}
 
 	/**
 	 * Set DataSources
 	 * 
-	 * @param dSource
+	 * @param dataSource
 	 */
-	public void setDataSource(DataSource dSource) {
-		this.dSource = dSource;
+	public void setDataSource(DataSource dtSource) {
+		this.dataSource = dtSource;
 	}
 
 	/**
@@ -63,7 +67,7 @@ public class ProductDao {
 	 * @throws SQLException
 	 */
 	public void simpan(Product p) throws SQLException {
-		Connection c = dSource.getConnection();
+		Connection c = dataSource.getConnection();
 
 		try {
 			c.setAutoCommit(false);
@@ -96,7 +100,7 @@ public class ProductDao {
 	 */
 	public Product cariById(Integer id) throws SQLException {
 		Product p = new Product();
-		Connection c = dSource.getConnection();
+		Connection c = dataSource.getConnection();
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -134,7 +138,7 @@ public class ProductDao {
 	}
 
 	public void deleteById(Integer id) throws SQLException {
-		Connection c = dSource.getConnection();
+		Connection c = dataSource.getConnection();
 
 		PreparedStatement ps = null;
 
