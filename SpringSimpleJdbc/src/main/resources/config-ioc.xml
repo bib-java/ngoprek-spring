@@ -13,6 +13,10 @@
 	<context:component-scan
 		base-package="de.bib.spring.simple.jdbc.dao" />
 
+	<!-- Configurai ke external properties -->
+	<context:property-placeholder
+		location="classpath:jdbc.properties" />
+
 	<bean id="product" class="de.bib.spring.simple.jdbc.model.Product">
 		<property name="kodeProduct" value="0005" />
 		<property name="nameProduct" value="Mainan" />
@@ -25,10 +29,9 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 			value="com.mysql.cj.jdbc.Driver" />
-		<property name="url"
-			value="jdbc:mysql://localhost:3306/myjavadb" />
-		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.username}" />
+		<property name="password" value="${database.password}" />
 	</bean>
 
 	<!-- <bean id="productDao" class="de.bib.spring.simple.jdbc.dao.ProductDao"> -->
