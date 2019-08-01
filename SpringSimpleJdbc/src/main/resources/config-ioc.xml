@@ -7,7 +7,11 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-	<context:annotation-config />
+	<!-- dengan ini maka inisialisa class ProductDao untuk dataSource tidak 
+		perlu di lakukan cukup tambahan annotation @Repository di nama class dan 
+		@AutoWired di nama property dataSource -->
+	<context:component-scan
+		base-package="de.bib.spring.simple.jdbc.dao" />
 
 	<bean id="product" class="de.bib.spring.simple.jdbc.model.Product">
 		<property name="kodeProduct" value="0005" />
@@ -27,13 +31,11 @@
 		<property name="password" value="" />
 	</bean>
 
-	<bean id="productDao"
-		class="de.bib.spring.simple.jdbc.dao.ProductDao">
-		<!-- Dependency Injection By Constructor -->
-		<!-- <constructor-arg ref="dS" /> -->
+	<!-- <bean id="productDao" class="de.bib.spring.simple.jdbc.dao.ProductDao"> -->
+	<!-- Dependency Injection By Constructor -->
+	<!-- <constructor-arg ref="dS" /> -->
 
-		<!-- Dependency Injection by Method Setter, -->
-		<!-- <property name="dataSource" ref="dS" /> -->
-	</bean>
-
+	<!-- Dependency Injection by Method Setter, -->
+	<!-- <property name="dataSource" ref="dS" /> -->
+	<!-- </bean> -->
 </beans>

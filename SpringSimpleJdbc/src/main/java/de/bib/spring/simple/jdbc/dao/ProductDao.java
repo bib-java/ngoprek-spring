@@ -9,16 +9,18 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import de.bib.spring.simple.jdbc.model.Product;
 import de.bib.spring.simple.jdbc.util.LoggerApp;
 
 /**
  * Class handle connection model product to database .
- * 
+ * @Repository -> class yg menghandle koneksi dan function database
  * @author User
  *
  */
+@Repository 
 public class ProductDao {
 
 	private Logger log = Logger.getLogger(ProductDao.class.getName());

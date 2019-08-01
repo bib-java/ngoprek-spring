@@ -34,6 +34,10 @@ public class SpringDIMainTest {
 		Product p = (Product) context.getBean("product");
 		System.out.println("Kode Product : " + p.getKodeProduct());
 
+		/**
+		 * productDao me-refe ke nama class dao {ProductDao}, dimana untuk huruf pertama
+		 * di rubah menjadi kecil .
+		 */
 		ProductDao pDAO = (ProductDao) context.getBean("productDao");
 		// pDAO.simpan(p);
 
