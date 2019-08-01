@@ -35,7 +35,16 @@ public class SpringDIMainTest {
 		System.out.println("Kode Product : " + p.getKodeProduct());
 
 		ProductDao pDAO = (ProductDao) context.getBean("productDao");
-		pDAO.simpan(p);
+		// pDAO.simpan(p);
+
+		/** Get product by kode_product. */
+		try {
+			p = pDAO.cariById(2);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error, Get data");
+		}
+		System.out.println("Kode_Product :" + p.getKodeProduct() + " , Nama_Product :" + p.getNameProduct());
 
 	}
 }

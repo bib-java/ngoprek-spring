@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import de.bib.spring.simple.jdbc.model.Product;
 import de.bib.spring.simple.jdbc.util.LoggerApp;
@@ -56,6 +57,7 @@ public class ProductDao {
 	 * 
 	 * @param dataSource
 	 */
+	@Autowired
 	public void setDataSource(DataSource dtSource) {
 		this.dataSource = dtSource;
 	}
